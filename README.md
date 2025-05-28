@@ -34,7 +34,7 @@ The Monty Hall problem is a counter-intuitive statistics puzzle:
    ```
    npm start
    ```
-4. Open your browser to http://localhost:3000
+4. Open your browser to http://localhost:5173
 
 ## Why Switching Works
 
@@ -49,7 +49,11 @@ Therefore, the probability that the car is behind one of the other doors remains
 - React
 - TypeScript
 - Recharts for data visualization
-- Vite for the development environment
+- Vite for the build system and development server
+
+## Development
+
+This project uses Vite instead of webpack for a faster development experience. The development server automatically reloads when you make changes and provides helpful error messages.
 
 ## License
 

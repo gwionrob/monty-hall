@@ -1,0 +1,366 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+h2 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 5px;
+}
+
+.game-container {
+  margin-bottom: 40px;
+}
+
+.doors-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.door {
+  width: 120px;
+  height: 200px;
+  position: relative;
+  perspective: 1000px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.door:hover:not(.revealed) {
+  transform: scale(1.05);
+}
+
+.door-front,
+.door-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.6s;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
+.door-front {
+  background-color: #3498db;
+  color: white;
+  transform: rotateY(0deg);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 5px solid #2980b9;
+}
+
+.door-back {
+  background-color: #f1f1f1;
+  transform: rotateY(180deg);
+  font-size: 50px;
+}
+
+.door.selected .door-front {
+  background-color: #2ecc71;
+  border-color: #27ae60;
+}
+
+.door.revealed .door-front {
+  transform: rotateY(180deg);
+}
+
+.door.revealed .door-back {
+  transform: rotateY(0deg);
+}
+
+.game-controls {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.game-controls p {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.door-options {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 15px;
+}
+
+.door-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  min-width: 100px;
+}
+
+.option-label {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.door-option:first-child .option-label {
+  color: #e74c3c;
+}
+
+.door-option:last-child .option-label {
+  color: #2ecc71;
+}
+
+.option-door {
+  font-size: 14px;
+}
+
+button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.win-message {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.lose-message {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.stats-container {
+  margin-bottom: 40px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.stat-box {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stat-box h3 {
+  color: #3498db;
+  margin-bottom: 10px;
+}
+
+.charts-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.simulation-controls + .charts-container {
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.charts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
+}
+
+.charts-header h3 {
+  margin: 0;
+  color: #3498db;
+}
+
+.toggle-btn {
+  background-color: transparent;
+  color: #3498db;
+  border: 1px solid #3498db;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.toggle-btn:hover {
+  background-color: #3498db;
+  color: white;
+}
+
+.collapsible-charts {
+  overflow: hidden;
+  max-height: 800px;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.collapsible-charts.collapsed {
+  max-height: 0;
+}
+
+.chart-wrapper {
+  margin-bottom: 20px;
+}
+
+.chart-wrapper h4 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #3498db;
+}
+
+.sim-history-chart {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px dashed #ddd;
+}
+
+.charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.simulation-controls {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  margin-right: 10px;
+  min-width: 120px;
+}
+
+.input-group input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-container {
+  margin: 15px 0;
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: #ecf0f1;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #3498db;
+  background-image: linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.15) 25%, 
+    transparent 25%, 
+    transparent 50%, 
+    rgba(255, 255, 255, 0.15) 50%, 
+    rgba(255, 255, 255, 0.15) 75%, 
+    transparent 75%, 
+    transparent);
+  background-size: 40px 40px;
+  border-radius: 10px;
+  transition: width 0.3s ease-in-out;
+}
+
+.progress-bar span {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  line-height: 20px;
+  color: #333;
+  font-weight: bold;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.progress-message {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #3498db;
+  text-align: center;
+  font-weight: bold;
+}
+
+.explanation {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.explanation p {
+  margin-bottom: 15px;
+}

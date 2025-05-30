@@ -73,6 +73,8 @@ const App = () => {
     
     // Update selected door
     setSelectedDoor(doorIndex);
+    
+    // Set game state to final to reveal all doors
     setGameState('final');
 
     // Check if won
@@ -88,7 +90,10 @@ const App = () => {
       else setStayLosses(prev => prev + 1);
     }
     
-    setGameState('result');
+    // Set timeout to change to result state after doors have flipped
+    setTimeout(() => {
+      setGameState('result');
+    }, 800); // Slightly longer than door flip animation (600ms)
   };
 
   // Auto-run simulation
@@ -199,7 +204,7 @@ const App = () => {
             <div 
               key={doorIndex}
               className={`door ${selectedDoor === doorIndex ? 'selected' : ''} 
-                          ${revealedDoor === doorIndex || gameState === 'result' ? 'revealed' : ''}`}
+                          ${revealedDoor === doorIndex || (gameState === 'result' || gameState === 'final') ? 'revealed' : ''}`}
               onClick={() => 
                 gameState === 'selection' 
                   ? handleDoorSelect(doorIndex) 
@@ -212,7 +217,7 @@ const App = () => {
                 <span>{doorIndex + 1}</span>
               </div>
               <div className="door-back">
-                {gameState === 'result' || revealedDoor === doorIndex ? (
+                {(gameState === 'result' || gameState === 'final') || revealedDoor === doorIndex ? (
                   doors[doorIndex] === 'car' ? '🚗' : '🐐'
                 ) : '?'}
               </div>
@@ -240,6 +245,12 @@ const App = () => {
                   </span>
                 </div>
               </div>
+            </div>
+          )}
+          
+          {gameState === 'final' && (
+            <div>
+              <p>Revealing all doors...</p>
             </div>
           )}
           

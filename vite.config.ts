@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [react()],
   root: './src',
   publicDir: '../public',
+  base: '/monty-hall/',
   build: {
     outDir: '../dist',
     emptyOutDir: true,

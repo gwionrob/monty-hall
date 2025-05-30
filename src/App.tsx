@@ -199,7 +199,7 @@ const App = () => {
             <div 
               key={doorIndex}
               className={`door ${selectedDoor === doorIndex ? 'selected' : ''} 
-                          ${revealedDoor === doorIndex ? 'revealed' : ''}`}
+                          ${revealedDoor === doorIndex || gameState === 'result' ? 'revealed' : ''}`}
               onClick={() => 
                 gameState === 'selection' 
                   ? handleDoorSelect(doorIndex) 
